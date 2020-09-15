@@ -1,6 +1,8 @@
 import routes from "../routes";
 import Video from "../models/Video";
 
+const fs = require("fs");
+
 export const home = async (req, res) => {
     try{
         const videos = await Video.find({}).sort({'_id': -1});
@@ -86,7 +88,6 @@ export const deleteVideo = async (req, res) => {
     
     try {
         const video = await Video.findById(id);
-        const fs = require("fs");
         fs.unlinkSync(video.fileUrl);
         video.remove();
         // await Video.findOneAndRemove({ _id: id });
